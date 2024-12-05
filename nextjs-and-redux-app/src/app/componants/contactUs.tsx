@@ -1,31 +1,87 @@
-
+import { theme } from "@/styles/theme";
+import { Button, Card, Col, Form, Input, Row } from "antd";
+import { Content } from "antd/es/layout/layout";
+import Title from "antd/es/typography/Title";
+import Text from "antd/es/typography/Text";
+import {
+    PhoneFilled, MailFilled, EnvironmentFilled
+} from '@ant-design/icons';
+import TextArea from "antd/es/input/TextArea";
 export default function ContactUs() {
 
     return (
-        <div>
-            <h1>Contact Us</h1>
-            <div>
-                <h2>Send Message</h2>
+        <Content style={{ paddingTop: 15 }} >
+            <Title style={{ color: theme.token.colorWhite, textAlign: "center", paddingBottom: 5 }}>Contact Us</Title>
+            <Row >
 
-                <input placeholder="Enter your name" ></input>
-                <br />
-                <input placeholder="Enter a valid email adress" ></input>
-                <br />
-                <textarea />
-                <br />
-                <button>SUBMIT</button>
-            </div>
-            <div>
-                <h3>Adress</h3>
-                <span>Ain temouchent , Algeria</span>
-                <br />
-                <h3>Phone</h3>
-                <span> (+213) 0661-55-77-30 </span>
-                <br />
-                <h3>Email</h3>
-                <span> contact@transformatek.dz </span>
-                <br />
-            </div>
-        </div>
+                <Col
+                    xs={{ flex: '100%' }}
+                    sm={{ flex: '100%' }}
+                    md={{ flex: '60%' }}
+                    lg={{ flex: '60%' }}
+                    style={{ display: "flex", justifyContent: "center", marginTop: 10 }}
+                >
+                    <Card bordered={false} style={{ width: "80%" }}>
+                        <Title level={2}>Send Message</Title>
+                        <Form
+                            name="wrap"
+                            labelCol={{ flex: '110px' }}
+                            labelAlign="left"
+                            labelWrap
+                            wrapperCol={{ flex: 1 }}
+                            colon={false}
+                            style={{ maxWidth: 600 }}
+                        >
+                            <Form.Item name="username" rules={[{ required: true }]}>
+                                <Input placeholder="Enter your name" />
+                            </Form.Item>
+
+                            <Form.Item
+                                name="email"
+
+                                rules={[
+                                    {
+                                        type: 'email',
+                                        message: 'The input is not valid E-mail!',
+                                    },
+                                    {
+                                        required: true,
+                                        message: 'Please input your E-mail!',
+                                    },
+                                ]}
+                            >
+                                <Input placeholder="Enter a valid email adress" />
+                            </Form.Item>
+                            <Form.Item name="message" rules={[{ required: true }]}>
+                                <TextArea rows={4} placeholder="Enter your message" maxLength={6} />
+                            </Form.Item>
+                            <Form.Item label="">
+                                <Button type="primary" htmlType="submit" style={{ width: "70%" }} >
+                                    Submit
+                                </Button>
+                            </Form.Item>
+                        </Form>
+                    </Card>
+                </Col>
+                <Col
+                    xs={{ flex: '100%' }}
+                    sm={{ flex: '100%' }}
+                    md={{ flex: '40%' }}
+                    lg={{ flex: '40%' }}
+                    style={{ display: "flex", justifyContent: "center", marginTop: 10 }}
+                >
+                    <Card bordered={false} style={{ width: "80%" }}>
+                        <Title level={4}><EnvironmentFilled /> Adress</Title>
+                        <Text>Ain temouchent , Algeria</Text>
+                        <Title level={4}> <PhoneFilled /> Phone</Title>
+                        <Text>(+213) 0661-55-77-30</Text>
+                        <Title level={4}><MailFilled /> Email</Title>
+                        <Text>contact@transformatek.dz</Text>
+                    </Card>
+                </Col>
+
+            </Row>
+
+        </Content>
     )
 }
