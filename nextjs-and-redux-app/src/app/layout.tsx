@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
-
+import { AntdRegistry } from '@ant-design/nextjs-registry';
+import { ConfigProvider } from 'antd';
+import { theme } from "@/styles/theme"
+import 'antd/dist/reset.css';
 
 
 export const metadata: Metadata = {
@@ -15,7 +18,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body suppressHydrationWarning={true}>
-        {children}
+        <AntdRegistry>
+          <ConfigProvider theme={theme} >
+            {children}
+          </ConfigProvider>
+        </AntdRegistry>
       </body>
     </html>
   );
