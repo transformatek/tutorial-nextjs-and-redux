@@ -7,8 +7,12 @@ import {
     PhoneFilled, MailFilled, EnvironmentFilled
 } from '@ant-design/icons';
 import TextArea from "antd/es/input/TextArea";
-export default function ContactUs() {
+import { useI18n, useScopedI18n } from "../../../../locales/clients";
 
+export default function ContactUs() {
+    const t = useI18n()
+    const scopedEnter = useScopedI18n('enter')
+    const scopedInput = useScopedI18n('input')
     return (
         <Content style={{ paddingTop: 15 }} >
             <Title style={{ color: theme.token.colorWhite, textAlign: "center", paddingBottom: 5 }}>Contact Us</Title>
@@ -22,7 +26,7 @@ export default function ContactUs() {
                     style={{ display: "flex", justifyContent: "center", marginTop: 10 }}
                 >
                     <Card bordered={false} style={{ width: "80%" }}>
-                        <Title level={2}>Send Message</Title>
+                        <Title level={2}>{t('sendMessage')}</Title>
                         <Form
                             name="wrap"
                             labelCol={{ flex: '110px' }}
@@ -33,7 +37,7 @@ export default function ContactUs() {
                             style={{ maxWidth: 600 }}
                         >
                             <Form.Item name="username" rules={[{ required: true }]}>
-                                <Input placeholder="Enter your name" />
+                                <Input placeholder={scopedEnter('yourName')} />
                             </Form.Item>
 
                             <Form.Item
@@ -42,18 +46,18 @@ export default function ContactUs() {
                                 rules={[
                                     {
                                         type: 'email',
-                                        message: 'The input is not valid E-mail!',
+                                        message: scopedInput('notValid'),
                                     },
                                     {
                                         required: true,
-                                        message: 'Please input your E-mail!',
+                                        message: scopedInput('email'),
                                     },
                                 ]}
                             >
-                                <Input placeholder="Enter a valid email adress" />
+                                <Input placeholder={scopedEnter('email')} />
                             </Form.Item>
                             <Form.Item name="message" rules={[{ required: true }]}>
-                                <TextArea rows={4} placeholder="Enter your message" maxLength={6} />
+                                <TextArea rows={4} placeholder={scopedEnter('message')} maxLength={6} />
                             </Form.Item>
                             <Form.Item label="">
                                 <Button type="primary" htmlType="submit" style={{ width: "70%" }} >
@@ -71,11 +75,11 @@ export default function ContactUs() {
                     style={{ display: "flex", justifyContent: "center", marginTop: 10 }}
                 >
                     <Card bordered={false} style={{ width: "80%" }}>
-                        <Title level={4}><EnvironmentFilled /> Adress</Title>
+                        <Title level={4}><EnvironmentFilled /> {t('adress')}</Title>
                         <Text>Ain temouchent , Algeria</Text>
-                        <Title level={4}> <PhoneFilled /> Phone</Title>
+                        <Title level={4}> <PhoneFilled /> {t('phone')}</Title>
                         <Text>(+213) 0661-55-77-30</Text>
-                        <Title level={4}><MailFilled /> Email</Title>
+                        <Title level={4}><MailFilled /> {t('email')}</Title>
                         <Text>contact@transformatek.dz</Text>
                     </Card>
                 </Col>
