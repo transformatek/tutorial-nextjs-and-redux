@@ -1,5 +1,5 @@
 export default {
-  'contactUs': 'Contactez-nous',
+  'contactUs': 'Contactez Nous',
   'sendMessage': 'Envoyer un message',
   'enter.yourName': 'Entrez votre nom',
   'enter.email': 'Entrez une adresse e-mail valide',
