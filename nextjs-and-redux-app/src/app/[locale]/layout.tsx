@@ -5,6 +5,7 @@ import { theme } from "@/styles/theme"
 import 'antd/dist/reset.css';
 import { I18nProviderClient } from "../../../locales/clients";
 import { ReactElement } from "react";
+import { StoreProvider } from "../storeProvider";
 
 
 export const metadata: Metadata = {
@@ -18,13 +19,15 @@ export default async function RootLayout({ params, children }: { params: Promise
   return (
     <html lang={locale}>
       <body suppressHydrationWarning={true}>
-        <I18nProviderClient locale={locale}>
-          <AntdRegistry>
-            <ConfigProvider theme={theme} >
-              {children}
-            </ConfigProvider>
-          </AntdRegistry>
-        </I18nProviderClient>
+        <StoreProvider>
+          <I18nProviderClient locale={locale}>
+            <AntdRegistry>
+              <ConfigProvider theme={theme} >
+                {children}
+              </ConfigProvider>
+            </AntdRegistry>
+          </I18nProviderClient>
+        </StoreProvider>
       </body>
     </html>
   );
