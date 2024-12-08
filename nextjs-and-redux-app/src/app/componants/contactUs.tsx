@@ -1,4 +1,3 @@
-import { theme } from "@/styles/theme";
 import { Button, Card, Col, Form, Input, Row } from "antd";
 import { Content } from "antd/es/layout/layout";
 import Title from "antd/es/typography/Title";
@@ -7,13 +6,14 @@ import {
     PhoneFilled, MailFilled, EnvironmentFilled
 } from '@ant-design/icons';
 import TextArea from "antd/es/input/TextArea";
+import { theme } from 'antd';
 export default function ContactUs() {
-
+    const { useToken } = theme;
+    const { token } = useToken();
     return (
         <Content style={{ paddingTop: 15 }} >
-            <Title style={{ color: theme.token.colorWhite, textAlign: "center", paddingBottom: 5 }}>Contact Us</Title>
+            <Title style={{ color: token.colorWhite, textAlign: "center", paddingBottom: 5 }}>Contact Us</Title>
             <Row >
-
                 <Col
                     xs={{ flex: '100%' }}
                     sm={{ flex: '100%' }}
@@ -56,7 +56,7 @@ export default function ContactUs() {
                                 <TextArea rows={4} placeholder="Enter your message" maxLength={6} />
                             </Form.Item>
                             <Form.Item label="">
-                                <Button type="primary" htmlType="submit" style={{ width: "70%" }} >
+                                <Button htmlType="submit" style={{ width: "70%" }} type={'primary'}>
                                     Submit
                                 </Button>
                             </Form.Item>
