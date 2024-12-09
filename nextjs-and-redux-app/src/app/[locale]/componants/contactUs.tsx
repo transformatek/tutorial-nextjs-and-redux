@@ -1,17 +1,16 @@
 import { theme } from "@/styles/theme";
-import { Button, Card, Col, Form, Input, message, Row } from "antd";
-import { Content } from "antd/es/layout/layout";
+import { Button, Card, Col, Form, Input, message, Row, Space } from "antd";
 import Title from "antd/es/typography/Title";
 import Text from "antd/es/typography/Text";
 import {
     PhoneFilled, MailFilled, EnvironmentFilled
 } from '@ant-design/icons';
 import TextArea from "antd/es/input/TextArea";
-import { useI18n, useScopedI18n } from "../../../../locales/clients";
+import { useI18n, useScopedI18n } from "../../../../locales/client";
 import { useAppDispatch } from "@/lib/hook";
 import { postContact } from "@/lib/features/contact/contactThunks";
 import { useContact } from "@/lib/features/contact/contactSelectors";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function ContactUs() {
     const t = useI18n()
@@ -21,8 +20,13 @@ export default function ContactUs() {
     const [messageApi, contextHolder] = message.useMessage();
     const key = 'updatable';
     const { isLoading, contactResponse } = useContact()
+    const [values, setValues] = useState({
+        name: "",
+        email: "",
+        msg: "",
+    });
 
-    useEffect(()=> {
+    useEffect(() => {
         if (isLoading == false)
             messageApi.open({
                 key,
@@ -32,14 +36,18 @@ export default function ContactUs() {
             });
     }, [isLoading, contactResponse])
 
-    const sendMessage = async () =>{
-        await dispatch(postContact())
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setValues({ ...values, [name]: value });
+    };
+    const sendMessage = async () => {
+        await dispatch(postContact({ values }))
     }
- 
+
     return (
         <>
             {contextHolder}
-            <Content style={{ paddingTop: 15 }} >
+            <Space direction="vertical" size="middle" style={{ display: 'flex', paddingTop: 15 }} >
                 <Title style={{ color: theme.token.colorWhite, textAlign: "center", paddingBottom: 5 }}>{t('contactUs')}</Title>
                 <Row >
 
@@ -62,7 +70,11 @@ export default function ContactUs() {
                                 style={{ maxWidth: 600 }}
                             >
                                 <Form.Item name="username" rules={[{ required: true }]}>
-                                    <Input placeholder={scopedEnter('yourName')} />
+                                    <Input placeholder={scopedEnter('yourName')}
+                                        name="name"
+                                        onChange={handleChange}
+                                        value={values.name}
+                                    />
                                 </Form.Item>
 
                                 <Form.Item
@@ -79,10 +91,16 @@ export default function ContactUs() {
                                         },
                                     ]}
                                 >
-                                    <Input placeholder={scopedEnter('email')} />
+                                    <Input placeholder={scopedEnter('email')}
+                                    name="email"
+                                        onChange={handleChange}
+                                        value={values.email} />
                                 </Form.Item>
                                 <Form.Item name="message" rules={[{ required: true }]}>
-                                    <TextArea rows={4} placeholder={scopedEnter('message')} maxLength={6} />
+                                    <Input name="msg" placeholder={scopedEnter('message')} maxLength={6}
+                                        onChange={handleChange}
+                                        value={values.msg}
+                                    />
                                 </Form.Item>
                                 <Form.Item label="">
                                     <Button type="primary" htmlType="submit" style={{ width: "70%" }}
@@ -113,7 +131,7 @@ export default function ContactUs() {
 
                 </Row>
 
-            </Content>
+            </Space>
         </>
     )
 }
