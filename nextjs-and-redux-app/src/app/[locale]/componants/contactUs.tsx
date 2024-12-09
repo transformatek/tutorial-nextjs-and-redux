@@ -1,18 +1,20 @@
-import { theme } from "@/styles/theme";
 import { Button, Card, Col, Form, Input, message, Row, Space } from "antd";
 import Title from "antd/es/typography/Title";
 import Text from "antd/es/typography/Text";
 import {
     PhoneFilled, MailFilled, EnvironmentFilled
 } from '@ant-design/icons';
-import TextArea from "antd/es/input/TextArea";
 import { useI18n, useScopedI18n } from "../../../../locales/client";
 import { useAppDispatch } from "@/lib/hook";
 import { postContact } from "@/lib/features/contact/contactThunks";
 import { useContact } from "@/lib/features/contact/contactSelectors";
 import { useEffect, useState } from "react";
+import { theme } from 'antd';
 
 export default function ContactUs() {
+
+    const { useToken } = theme;
+    const { token } = useToken();
     const t = useI18n()
     const scopedEnter = useScopedI18n('enter')
     const scopedInput = useScopedI18n('input')
@@ -48,7 +50,7 @@ export default function ContactUs() {
         <>
             {contextHolder}
             <Space direction="vertical" size="middle" style={{ display: 'flex', paddingTop: 15 }} >
-                <Title style={{ color: theme.token.colorWhite, textAlign: "center", paddingBottom: 5 }}>{t('contactUs')}</Title>
+                <Title style={{ color: token.colorWhite, textAlign: "center", paddingBottom: 5 }}>{t('contactUs')}</Title>
                 <Row >
 
                     <Col
@@ -92,7 +94,7 @@ export default function ContactUs() {
                                     ]}
                                 >
                                     <Input placeholder={scopedEnter('email')}
-                                    name="email"
+                                        name="email"
                                         onChange={handleChange}
                                         value={values.email} />
                                 </Form.Item>
